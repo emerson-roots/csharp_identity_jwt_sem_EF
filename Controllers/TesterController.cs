@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using project.Models;
 using project.Repository;
+using project.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,20 +15,61 @@ namespace project.Controllers
     {
 
         private readonly ILogger<TesterController> _logger;
-        private readonly UserRepository _repo;
+        private readonly IUserRepository _repo;
 
-        public TesterController(ILogger<TesterController> logger, UserRepository repo)
+        public TesterController(ILogger<TesterController> logger, IUserRepository repo)
         {
             _logger = logger;
             _repo = repo;
         }
 
         [HttpGet]
-        public async Task<List<ApplicationUser>> GetAllUsers()
+        public async Task<IActionResult> Get(ApplicationUser user, string roleName)
         {
             try
             {
-                return await _repo.GetAllUsers();
+                await _repo.RemoveFromRoleAsync(user, roleName);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("GetBy")]
+        public async Task<IActionResult> GetBy(int id)
+        {
+            try
+            {
+                return Ok(await _repo.FindByIdAsync(id));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(ApplicationUser user)
+        {
+            try
+            {
+                await _repo.UpdateAsync(user);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("Delete")]
+        public async Task<IActionResult> Delete(ApplicationUser user)
+        {
+            try
+            {
+                return Ok(await _repo.DeleteAsync(user));
             }
             catch (Exception)
             {

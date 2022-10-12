@@ -37,8 +37,8 @@ namespace project.Repository
             string roleTable = @"CREATE TABLE IF NOT EXISTS ApplicationRole (
                                         Id             INTEGER NOT NULL 
                                                             CONSTRAINT PK_Roles PRIMARY KEY AUTOINCREMENT,
-                                        Name           TEXT,
-                                        NormalizedName TEXT
+                                        Name           TEXT NOT NULL UNIQUE,
+                                        NormalizedName TEXT NOT NULL UNIQUE
                                     );
                                     ";
 

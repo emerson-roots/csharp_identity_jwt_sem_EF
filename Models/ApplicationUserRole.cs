@@ -1,4 +1,6 @@
-﻿namespace project.Models
+﻿using SQLite;
+
+namespace project.Models
 {
     // classe para gerenciar as permissões associadas a um determinado usuário
     // foi criada apenas para que o ORM do sqlite pudesse gerenciar e criar a tabela automaticamente

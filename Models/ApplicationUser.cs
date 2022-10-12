@@ -1,7 +1,10 @@
-﻿namespace project.Models
+﻿using SQLite;
+
+namespace project.Models
 {
     public class ApplicationUser
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public string UserName { get; set; }

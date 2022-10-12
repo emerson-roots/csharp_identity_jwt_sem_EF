@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using project.Repository;
+using project.Repository.Interfaces;
 
 namespace project
 {
@@ -28,7 +29,7 @@ namespace project
             });
 
             services.AddScoped<DbSession>();
-            services.AddScoped<UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
