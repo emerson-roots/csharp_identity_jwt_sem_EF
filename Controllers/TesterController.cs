@@ -15,9 +15,9 @@ namespace project.Controllers
     {
 
         private readonly ILogger<TesterController> _logger;
-        private readonly IUserRepository _repo;
+        private readonly IRoleRepository _repo;
 
-        public TesterController(ILogger<TesterController> logger, IUserRepository repo)
+        public TesterController(ILogger<TesterController> logger, IRoleRepository repo)
         {
             _logger = logger;
             _repo = repo;
@@ -28,7 +28,7 @@ namespace project.Controllers
         {
             try
             {
-                await _repo.RemoveFromRoleAsync(user, roleName);
+                //await _repo.RemoveFromRoleAsync(user, roleName);
                 return Ok();
             }
             catch (Exception)
@@ -38,11 +38,11 @@ namespace project.Controllers
         }
 
         [HttpGet("GetBy")]
-        public async Task<IActionResult> GetBy(int id)
+        public async Task<IActionResult> GetBy(string id)
         {
             try
             {
-                return Ok(await _repo.FindByIdAsync(id));
+                return Ok(await _repo.FindByNameAsync(id));
             }
             catch (Exception)
             {
@@ -51,11 +51,25 @@ namespace project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(ApplicationUser user)
+        public async Task<IActionResult> Post(ApplicationRole role)
         {
             try
             {
-                await _repo.UpdateAsync(user);
+                await _repo.CreateAsync(role);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(ApplicationRole role)
+        {
+            try
+            {
+                await _repo.UpdateAsync(role);
                 return Ok();
             }
             catch (Exception)
@@ -65,7 +79,7 @@ namespace project.Controllers
         }
 
         [HttpPost("Delete")]
-        public async Task<IActionResult> Delete(ApplicationUser user)
+        public async Task<IActionResult> Delete(ApplicationRole user)
         {
             try
             {
