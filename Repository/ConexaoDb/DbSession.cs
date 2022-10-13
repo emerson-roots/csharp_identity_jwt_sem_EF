@@ -13,7 +13,7 @@ namespace project.Repository
 
         public DbSession()
         {
-            Connection = new SQLiteAsyncConnection(_diretorioBanco);
+            Connection = new SQLiteAsyncConnection(_diretorioBanco, false);
             //DropTables();
             CreateTables();
         }
