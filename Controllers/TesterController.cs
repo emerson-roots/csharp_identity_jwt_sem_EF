@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using project.Models;
 using project.Repository;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace project.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class TesterController : ControllerBase
